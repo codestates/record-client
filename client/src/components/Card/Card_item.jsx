@@ -3,7 +3,7 @@ import styles from '../Card/Card_item.module.css';
 const CardItem = ({ postData, userData }) => (
   <li className={styles.container}>
     <div className={styles.card}>
-      {postData.fileUrl == '' ? null : (
+      {postData.fileUrl === '' ? null : (
         <img className={styles.thumnail} src={postData.fileUrl} alt="" />
       )}
       <div className={styles.contentBox}>

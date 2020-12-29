@@ -1,10 +1,10 @@
-import styles from '../Write/Write.module.css';
+import styles from '../Post/Post.module.css';
 
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Preview from './Preview/Preview';
 
-const Write = ({ userData, postData, setPostData }) => {
+const Post = ({ userData, postData, setPostData }) => {
   let Today = new Date();
   let date = `${Today.getFullYear()}년 ${Today.getMonth()}월 ${Today.getDate()}일`;
   const history = useHistory();
@@ -108,4 +108,4 @@ const Write = ({ userData, postData, setPostData }) => {
   );
 };
 
-export default Write;
+export default Post;
