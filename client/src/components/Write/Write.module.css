@@ -1,0 +1,110 @@
+.sectionContainer {
+  max-width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.postContainer {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.titleInput {
+  outline: none;
+  height: 150px;
+  font-size: 24px;
+  padding-left: 20px;
+  border: none;
+}
+
+.titleInput::placeholder {
+  font-size: 20px;
+}
+
+.line {
+  background-color: black;
+  border-bottom: 1px sold black;
+  width: 7%;
+  height: 6px;
+  margin-left: 20px;
+}
+
+.tagInput {
+  outline: none;
+  height: 60px;
+  font-size: 24px;
+  padding: 20px;
+  border: none;
+}
+
+.tagInput::placeholder {
+  font-size: 14px;
+}
+
+.contentInput {
+  resize: none;
+  outline: none;
+  height: 80%;
+  border: none;
+  font-size: 24px;
+  padding: 20px;
+}
+
+.contentInput::placeholder {
+  font-size: 24px;
+}
+
+.viewContainer {
+  width: 50%;
+  height: 100%;
+  background-color: rgb(248, 249, 250);
+  padding: 3rem;
+}
+
+.contentContainer {
+  margin-top: 3rem;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 20px;
+  border-top: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+  height: 10%;
+}
+
+.backBtn,
+.writeBtn {
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.backBtn {
+  border: 0;
+}
+
+.writeBtn {
+  width: 5rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  word-break: keep-all;
+  background: white;
+  border: 1px solid black;
+  color: rgb(52, 58, 64);
+  transition: all 0.125s ease-in 0s;
+  cursor: pointer;
+}
+
+.writeBtn:hover {
+  transform: scale(1.05);
+  background: rgb(52, 58, 64);
+  border: 1px solid black;
+  color: white;
+}

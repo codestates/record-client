@@ -1,0 +1,107 @@
+.container {
+  width: 25%;
+  padding: 1em;
+  margin-bottom: 14px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.3px;
+  cursor: pointer;
+  transition: transform 300ms ease-in;
+  height: 400px;
+  background-color: #ffffff;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 3px 3px 5px 0px rgba(191, 191, 191, 0.53);
+}
+
+.thumnail {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 5px;
+}
+
+.contentBox {
+  padding: 10px;
+}
+
+.title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  height: 50px;
+  margin-bottom: 40px;
+  font-size: 14px;
+  color: #485056;
+  overflow: hidden;
+}
+
+.date {
+  font-size: 0.9rem;
+  color: #858e96;
+}
+
+.imgUrl {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.footer {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  bottom: 10px;
+  left: 10px;
+  border-top: 1px solid rgb(248, 249, 250);
+}
+
+.userImg {
+  margin-top: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.userId {
+  margin-left: 10px;
+  font-size: 14px;
+  color: rgb(134, 142, 150);
+}
+
+.userId b {
+  color: black;
+}
+
+a {
+  color: black;
+}
+
+.likeBtn {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 5px;
+}
+
+.like {
+  position: absolute;
+  bottom: 12px;
+  right: 10px;
+  font-size: 10px;
+}
