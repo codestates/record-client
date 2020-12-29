@@ -5,7 +5,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Search from './components/Search/Search';
-import Write from './components/Write/Write';
+import Post from './components/Post/Post';
 import userSchema from './schema/user';
 import postSchema from './schema/post';
 const App = () => {
@@ -34,7 +34,7 @@ const App = () => {
           <Route exact path="/register" component={Register} />
           <Route exact path="/search" component={Search} />
           <Route exact path="/write">
-            <Write
+            <Post
               userData={userData}
               postData={postData}
               setPostData={setPostData}

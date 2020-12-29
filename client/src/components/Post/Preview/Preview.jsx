@@ -45,7 +45,7 @@ const Preview = ({ postContent, postBtnHandler, setPostContent }) => {
             이미지 제거
           </button>
           <div className={styles.imgContainer}>
-            {postContent.fileUrl == '' ? (
+            {postContent.fileUrl === '' ? (
               <svg width="107" height="85" fill="none" viewBox="0 0 107 85">
                 <path
                   fill="#868E96"
