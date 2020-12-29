@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styles from '../Navbar/Navbar.module.css';
 import { useHistory } from 'react-router-dom';
-const Navbar = ({ isLogin }) => {
+const Navbar = ({ isLogin, myData }) => {
   const history = useHistory();
-
+  console.log(myData)
   const titleBtnHandler = () => {
     history.push({
       pathname: '/',
@@ -44,7 +44,7 @@ const Navbar = ({ isLogin }) => {
       ) : (
         <div className={styles.container}>
           <button className={styles.titleBtn} onClick={titleBtnHandler}>
-            Record
+            {myData ? `${myData.data.data.username}'s RECORD` : 'RECORD' }
           </button>
           <button className={styles.searchBtn} onClick={searchBtnHandler}>
             검색
@@ -55,7 +55,7 @@ const Navbar = ({ isLogin }) => {
           <div className={styles.background}>
             <img
               className={styles.profile}
-              src="/images/myimg.jpeg"
+              src="/images/myimg.jpeg" //myData.data.profileImg값이 있으면 그걸 렌더 
               alt="profile"
             />
           </div>
