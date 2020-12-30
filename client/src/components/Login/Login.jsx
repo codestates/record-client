@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import styles from '../Login/Login.module.css';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-const Login = ({ setIsLogin, setAccessToken, accessToken, inputMyInfo }) => {
+const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
   const history = useHistory();
 
   const [loginInfo, setLoginInfo] = useState({ email: '', password: '' });
-  console.log(loginInfo)
   const loginHandler = (e) => {
     let login = { ...loginInfo, [e.target.name]: e.currentTarget.value };
     setLoginInfo(login);
@@ -19,20 +18,20 @@ const Login = ({ setIsLogin, setAccessToken, accessToken, inputMyInfo }) => {
   };
 
   const loginBtnHandler = () => {
+
     /* 
       로그인 요청: 
       1. 토큰을 받아오는 데 성공하면 토큰을 App의 상태에 저장하고 isLogin의 상태를 변경한다.
         1.1 응답객체의 형태 { "access_token": access_token, "message": "token issued OK"} 
       2. 유저정보(profileImg)를 가져와서 isLogin=true Nav바에 프로필 사진을 렌더한다
          2.1 지금 코드에서 App.js의 myData에 담아준다
-         2.2 LandingPage => Navbar 로 props drilling
+         2.2 LandingPage => Navbar로 props drilling
          2.3 isLogin=true로 렌더되는 부분의 Nav의 프로필사진에 데이터연결
            2.3.1 이미지가 데이터베이스에 어떻게 될건지 백엔드분들에게 여쭤보기 
-      3. 
     */
     const {email, password} = loginInfo
     axios
-      .post("http://localhost:8000/users/login",
+      .post("http://localhost:4000/users/login",
       {email, password},
       {headers: { "Content-Type": "application/json" }, withCredentials: true }
       )
@@ -40,22 +39,20 @@ const Login = ({ setIsLogin, setAccessToken, accessToken, inputMyInfo }) => {
         if (res.status === 400 ) {
           alert('일치하는 유저정보가 없습니다')
         }
-        console.log(res) 
-        setAccessToken(res.data.access_token) 
+        setAccessToken(res.data.data.accessToken)
+        return res.data.data.accessToken
       })
-      .then(() => {
+      .then((token) => {
         return axios
-          .get("http://localhost:8000/accessTokenRequest", {
+          .get("http://localhost:4000/accessTokenRequest", {
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
             withCredentials: true,
           })
           .then((userInfo) => {
             /* 에러핸들링: 토큰 없을 때, 토큰이 유효하지 않을 때 조건문 추가*/
-  
-            console.log(userInfo)
             inputMyInfo(userInfo)
             setIsLogin(true)
             history.push({
@@ -64,7 +61,6 @@ const Login = ({ setIsLogin, setAccessToken, accessToken, inputMyInfo }) => {
           })
           .catch(err => console.log(`server err: ${err}`))
       })
-
   }
     
 

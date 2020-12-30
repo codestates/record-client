@@ -3,7 +3,6 @@ import styles from '../Navbar/Navbar.module.css';
 import { useHistory } from 'react-router-dom';
 const Navbar = ({ isLogin, myData }) => {
   const history = useHistory();
-  console.log(myData)
   const titleBtnHandler = () => {
     history.push({
       pathname: '/',
