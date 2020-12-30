@@ -15,7 +15,7 @@ const App = () => {
   const [accessToken, setAccessToken] = useState("") //로그인 요청의 응답으로 받은 토큰 
   const [myData, setMyData] = useState({data: null})  
   //로그인한 사용자의 데이터, 어떤 컴포넌트로 내려줘야 할까?
-    //mypage, 
+
   useEffect(() => {
     setUserData(userSchema);
     setPostData(postSchema);
@@ -39,7 +39,7 @@ const App = () => {
             />
           </Route>
           <Route exact path="/login">
-            <Login setIsLogin={setIsLogin} setAccessToken={setAccessToken} accessToken={accessToken} inputMyInfo={inputMyInfo} />
+            <Login setIsLogin={setIsLogin} setAccessToken={setAccessToken} inputMyInfo={inputMyInfo} />
           </Route>
           <Route exact path="/register" component={Register} />
           <Route exact path="/search" component={Search} />

@@ -18,6 +18,7 @@ const Register = (props) => {
   };
 
   const registerBtnHanlder = () => {
+    //axios 요청: 
     alert('회원가입이 성공했습니다');
     history.push({
       pathname: '/login',
