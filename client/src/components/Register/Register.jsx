@@ -11,32 +11,55 @@ const Register = (props) => {
     password: '',
     passwordCheck: '',
   });
-
+  const { email, username, password, passwordCheck } = registerInfo
+  const [message, setMessage] = useState('')
   const registerHandler = (e) => {
     let register = { ...registerInfo, [e.target.name]: e.currentTarget.value };
     setRegisterInfo(register);
   };
 
   const registerBtnHanlder = () => {
-    //axios 요청: 
-    alert('회원가입이 성공했습니다');
-    history.push({
-      pathname: '/login',
-    });
+    let usernameReg = /^[a-z]+[a-z0-9-_]{6,16}$/
+    let passwordReg = /^[a-zA-z]+[a-zA-Z0-9!@#$]{7,19}$/
+    let emailReg = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    
+    if (email === '' || !emailReg.test(email)) {
+      setMessage("이메일을 입력하지 않았거나 형식이 알맞지 않습니다.")
+      return;
+    }else if (username === '' || !usernameReg.test(username)) {
+      setMessage("사용자 이름은 7~17개의 알파벳 소문자, 숫자, 특수문자 '-'와 '_'의 조합으로 입력해주시기 바랍니다.")
+      return;
+    }else if (password !== passwordCheck) {
+      setMessage("비밀번호가 일치하지 않습니다")
+      return;
+    }else if (password === '' || !passwordReg.test(password)) {
+      setMessage("비밀번호는 8~20개의 알파벳 대소문자, 숫자, 특수문자(!, @, #, $)의 조합으로 입력해주시기 바랍니다.")
+      return;
+    }
+
+  axios
+    .post("http://localhost:4000/users/register",
+    { email, username, password },{
+      headers: { 
+        "Content-Type": "application/json" }, 
+         withCredentials: true 
+      }
+    )
+    .then(res => {
+      if (res.status === 409) {
+        setMessage('이미 존재하는 이메일입니다.')
+      }else if (res.status === 422) {
+        setMessage('email, password, username을 입력해 주세요.')
+      }else if (res.status === 201){
+        alert('회원가입에 성공했습니다. 로그인해주세요');
+        history.push({
+          pathname: '/login',
+        });
+      }
+    })
+    .catch(err => console.log(err))
   };
 
-  // const registerBtnHandler2 = () => {
-  //   axios.post('localhost:4000/user/register', registerInfo).then((res) => {
-  //     if (res.status(200)) {
-  //       alert('회원가입이 성공했습니다');
-  //       history.push({
-  //         pathname: '/login',
-  //       });
-  //     } else {
-  //       alert('회원가입이 실패했습니다');
-  //     }
-  //   });
-  // };
 
   const loginBtnHandler = () => {
     history.push({
@@ -85,6 +108,7 @@ const Register = (props) => {
             registerHandler(e);
           }}
         />
+        <div className={styles.message}>{message}</div>
         <button className={styles.btn} onClick={registerBtnHanlder}>
           <span>가입</span>
         </button>
