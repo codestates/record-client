@@ -1,12 +1,20 @@
+.mainContainer {
+  width: 100%;
+  height: 100%;
+  background-color: #f8f9fa;
+}
+
 .container {
   display: flex;
   height: 60px;
   /* margin-top: 5px; */
   padding: 20px 0 0 0;
+  margin: 0 auto;
+  max-width: 90rem;
 }
 
 .nav {
-  margin-bottom: 60px;
+  padding-bottom: 60px;
 }
 
 .titleBtn {
@@ -24,13 +32,13 @@
   height: 2rem;
   padding-left: 1rem;
   padding-right: 1rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
   border-radius: 1rem;
   border: none;
   outline: none;
   font-weight: bold;
   word-break: keep-all;
-  background: rgb(52, 58, 64);
+  /* background: rgb(52, 58, 64); */
   color: white;
   transition: all 0.125s ease-in 0s;
   cursor: pointer;
