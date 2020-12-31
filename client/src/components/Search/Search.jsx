@@ -6,11 +6,9 @@ const Search = (props) => {
 
   const searchInputHandler = (event) => {
     setSearch(event.currentTarget.value);
-    /* console.log(search); */
   };
   return (
     <div className={styles.container}>
-      <Navbar />
       <div className={styles.inputContainer}>
         <div className={styles.inputs}>
           <input

@@ -13,6 +13,7 @@
   transition: transform 300ms ease-in;
   height: 400px;
   background-color: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 0px 4px 0px;
 }
 
 .card:hover {
