@@ -41,7 +41,7 @@ const App = () => {
           <Route exact path="/login">
             <Login setIsLogin={setIsLogin} setAccessToken={setAccessToken} inputMyInfo={inputMyInfo} />
           </Route>
-          <Route exact path="/register" component={Register} />
+          <Route exact path="/register" component={Register}/>
           <Route exact path="/search" component={Search} />
           <Route exact path="/write">
             <Post
