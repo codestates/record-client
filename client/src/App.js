@@ -7,6 +7,7 @@ import Register from './components/Register/Register';
 import Search from './components/Search/Search';
 import Post from './components/Post/Post';
 import Navbar from './components/Navbar/Navbar';
+import Detail from './components/Detail/Detail';
 import userSchema from './schema/user';
 import postSchema from './schema/post';
 const App = () => {
@@ -53,6 +54,10 @@ const App = () => {
               postData={postData}
               setPostData={setPostData}
             />
+          </Route>
+          <Route path="/detail">
+            <Navbar isLogin={isLogin} />
+            <Detail userData={userData} />
           </Route>
         </Switch>
       </Router>
