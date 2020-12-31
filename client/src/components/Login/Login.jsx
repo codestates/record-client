@@ -26,7 +26,7 @@ const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
         2.1 지금 코드에서 App.js의 myData에 담아준다
         2.2 LandingPage => Navbar로 props drilling
         2.3 isLogin=true로 렌더되는 부분의 Nav의 프로필사진에 데이터연결
-        2.3.1 이미지가 데이터베이스에 어떻게 될건지 백엔드분들에게 여쭤보기 
+          2.3.1 이미지가 데이터베이스에 어떻게 될건지 백엔드분들에게 여쭤보기 
     */
     const { email, password } = loginInfo;
     axios
@@ -49,7 +49,7 @@ const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
         return axios
           .get('http://localhost:4000/accessTokenRequest', {
             headers: {
-              Authorization: `Bearer ${token}`,
+              authorization: `Bearer ${token}`,
               'Content-Type': 'application/json',
             },
             withCredentials: true,

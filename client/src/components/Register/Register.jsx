@@ -11,6 +11,7 @@ const Register = (props) => {
     password: '',
     passwordCheck: '',
   });
+  console.log(registerInfo)
   const { email, username, password, passwordCheck } = registerInfo
   const [message, setMessage] = useState('')
   const registerHandler = (e) => {
@@ -39,7 +40,7 @@ const Register = (props) => {
 
   axios
     .post("http://localhost:4000/users/register",
-    { email, username, password },{
+    { email, username, password, passwordCheck },{
       headers: { 
         "Content-Type": "application/json" }, 
          withCredentials: true 

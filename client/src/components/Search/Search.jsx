@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styles from '../Search/Search.module.css';
 import Navbar from '../Navbar/Navbar';
-const Search = (props) => {
+import LogoutModal from '../Modal/LogoutModal'
+
+const Search = ({ accessToken, modalOff, clearToken, setLogout, isModalShow}) => {
   const [search, setSearch] = useState('');
 
   const searchInputHandler = (event) => {
@@ -17,6 +19,7 @@ const Search = (props) => {
           />
         </div>
       </div>
+      {isModalShow && <LogoutModal modalOff={modalOff} clearToken={clearToken} setLogout={setLogout} accessToken={accessToken}/>}
     </div>
   );
 };

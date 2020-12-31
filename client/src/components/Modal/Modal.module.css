@@ -1,5 +1,5 @@
 .container {
-  display: inline;
+  display: inline-table;
   border: 1px solid;
   padding: 10px;
 }
