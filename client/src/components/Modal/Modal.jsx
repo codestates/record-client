@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from '../Modal/Modal.module.css';
+import { useHistory } from 'react-router-dom';
 const Modal = ({ handleModal }) => {
+  const history = useHistory()
   const myBlogHandler = () => {
     console.log('내블로그')
   };
@@ -11,6 +13,9 @@ const Modal = ({ handleModal }) => {
 
   const myPageHandler = () => {
     console.log('내정보페이지')
+    history.push({
+      pathname: '/mypage'
+    })
   };
   return (
     <div className={styles.container}>
