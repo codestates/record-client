@@ -16,6 +16,8 @@ const App = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [accessToken, setAccessToken] = useState(''); //로그인 요청의 응답으로 받은 토큰
   const [myData, setMyData] = useState({ data: null });
+  const [isModalShow, setIsModalShow] = useState(false)
+
   //로그인한 사용자의 데이터, 어떤 컴포넌트로 내려줘야 할까?
 
   useEffect(() => {
@@ -28,13 +30,25 @@ const App = () => {
       data: userInfo.data,
     });
   };
+
+  const handleModal = () => {
+    setIsModalShow(!isModalShow)
+  };
+
+  const clearAccessToken = () => {
+    setAccessToken('')
+  }
+
+  const setLogout = () => {
+    setIsLogin(false)
+  }
   return (
     <>
       <Router>
         <Switch>
           <Route exact path="/">
-            <Navbar isLogin={isLogin} myData={myData} />
-            <LandingPage userData={userData} postData={postData} />
+            <Navbar isLogin={isLogin} myData={myData} handleModal={handleModal} />
+            <LandingPage userData={userData} postData={postData} isModalShow={isModalShow} accessToken={accessToken} modalOff={handleModal} clearToken={clearAccessToken} setLogout={setLogout}/>
           </Route>
           <Route exact path="/login">
             <Login
@@ -45,8 +59,8 @@ const App = () => {
           </Route>
           <Route exact path="/register" component={Register} />
           <Route exact path="/search">
-            <Navbar isLogin={isLogin} myData={myData} />
-            <Search />
+            <Navbar isLogin={isLogin} myData={myData} handleModal={handleModal}/>
+            <Search isModalShow={isModalShow} accessToken={accessToken} modalOff={handleModal} clearToken={clearAccessToken} setLogout={setLogout}/>
           </Route>
           <Route exact path="/write">
             <Post
