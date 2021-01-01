@@ -8,6 +8,7 @@ import Search from './components/Search/Search';
 import Post from './components/Post/Post';
 import Navbar from './components/Navbar/Navbar';
 import Detail from './components/Detail/Detail';
+import Mypage from './components/Mypage/Mypage'
 import userSchema from './schema/user';
 import postSchema from './schema/post';
 const App = () => {
@@ -72,6 +73,10 @@ const App = () => {
           <Route path="/detail">
             <Navbar isLogin={isLogin} />
             <Detail userData={userData} />
+          </Route>
+          <Route exact path="/mypage">
+            <Navbar /> {/* props작업 해줘야함, mypage에서도 로그아웃 할수 있도록  */}
+            <Mypage />
           </Route>
         </Switch>
       </Router>

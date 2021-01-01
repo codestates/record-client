@@ -10,7 +10,6 @@ const LandingPage = ({ userData, postData, isModalShow, modalOff, clearToken, se
         <Cardlist userData={userData} postData={postData} />
       </div>
       {isModalShow && <LogoutModal modalOff={modalOff} clearToken={clearToken} setLogout={setLogout} accessToken={accessToken}/>}
-
     </div>
   );
 };

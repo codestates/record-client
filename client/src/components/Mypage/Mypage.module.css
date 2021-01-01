@@ -1,0 +1,118 @@
+* {
+  margin: 0;
+  box-sizing: inherit;
+  
+}
+
+body {
+  padding: 0;
+  background-color: #f8f9fa;
+  
+}
+  
+.mainContainer {
+  margin: 0 auto;
+  max-width: 768px;
+  margin-top: 20px;
+}
+
+.profileInfo {
+  display: flex;
+}
+
+.thumbnail {
+  padding-right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.nickDesc {
+  flex: 1 1 0%;
+  padding-left: 1.5rem;
+  border-left: 1px solid ;
+}
+
+.thumbnailContainer {
+  border-radius: 70%;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+p {
+  margin: 10px;    
+}
+
+.uploadBtn {
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: rgb(124, 117, 218);
+  color: white;
+  padding: 0px 1.25rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+
+.deleteBtn {
+  margin-top: 0.5rem;
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: none;
+  color: rgb(124, 117, 218);
+  padding: 0px 1.25rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+
+.userInfo {
+  margin-top: 50px;
+}
+
+.wrapper {
+  display: flex;
+  margin: 10px;
+}
+
+.description {
+  margin: 10px;
+  font-style: italic;
+  color: rgb(80, 77, 77);
+}
+
+.infoName {
+  padding-right: 1.5rem;  
+}
+
+.infoOne {
+  margin-left: 93px;
+  padding-left: 1.5rem;
+}
+
+.infoTwo {
+  margin-left: 98px;
+  padding-left: 1.5rem;
+}
+
+.infoThree {
+  margin-left: 68px;
+  padding-left: 1.5rem;
+}
+  
+hr {
+  color: grey;
+}
