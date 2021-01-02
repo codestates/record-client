@@ -57,7 +57,7 @@ const Navbar = ({ isLogin, myData, handleModal }) => {
         ) : (
           <div className={styles.container}>
             <button className={styles.titleBtn} onClick={titleBtnHandler}>
-              RECORD
+              Record
             </button>
             <button className={styles.searchBtn} onClick={searchBtnHandler}>
               <svg width="17" height="17" viewBox="0 0 17 17">

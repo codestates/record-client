@@ -19,7 +19,7 @@ const Register = (props) => {
     setRegisterInfo(register);
   };
 
-  const registerBtnHanlder = () => {
+  const registerHanlder = () => {
     let usernameReg = /^[a-z]+[a-z0-9-_]{6,16}$/
     let passwordReg = /^[a-zA-z]+[a-zA-Z0-9!@#$]{7,19}$/
     let emailReg = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -110,7 +110,7 @@ const Register = (props) => {
           }}
         />
         <div className={styles.message}>{message}</div>
-        <button className={styles.btn} onClick={registerBtnHanlder}>
+        <button className={styles.btn} onClick={registerHanlder}>
           <span>가입</span>
         </button>
       </div>

@@ -93,3 +93,8 @@
   font-size: 14px;
   margin-top: 10px;
 }
+
+.message {
+  margin-top: 10px;
+  color: red;
+}

@@ -6,6 +6,7 @@ const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
   const history = useHistory();
 
   const [loginInfo, setLoginInfo] = useState({ email: '', password: '' });
+  const [message, setMessage] = useState('')
   const loginHandler = (e) => {
     let login = { ...loginInfo, [e.target.name]: e.currentTarget.value };
     setLoginInfo(login);
@@ -18,17 +19,17 @@ const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
   };
 
   const loginBtnHandler = () => {
-    /* 
-      로그인 요청: 
-      1. 토큰을 받아오는 데 성공하면 토큰을 App의 상태에 저장하고 isLogin의 상태를 변경한다.
-        1.1 응답객체의 형태 { "access_token": access_token, "message": "token issued OK"} 
-      2. 유저정보(profileImg)를 가져와서 isLogin=true Nav바에 프로필 사진을 렌더한다
-        2.1 지금 코드에서 App.js의 myData에 담아준다
-        2.2 LandingPage => Navbar로 props drilling
-        2.3 isLogin=true로 렌더되는 부분의 Nav의 프로필사진에 데이터연결
-          2.3.1 이미지가 데이터베이스에 어떻게 될건지 백엔드분들에게 여쭤보기 
-    */
     const { email, password } = loginInfo;
+    let emailReg = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    let passwordReg = /^[a-zA-z]+[a-zA-Z0-9!@#$]{7,19}$/
+
+    if (email === '' || !emailReg.test(email)) {
+      setMessage("이메일을 입력하지 않았거나 형식이 알맞지 않습니다.")
+      return;
+    }else if (password === '' || !passwordReg.test(password)) {
+      setMessage("비밀번호는 8~20개의 알파벳 대소문자, 숫자, 특수문자(!, @, #, $)의 조합으로 입력해주시기 바랍니다.")
+      return;
+    }
     axios
       .post(
         'http://localhost:4000/users/login',
@@ -100,6 +101,7 @@ const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
             loginHandler(e);
           }}
         />
+        <div className={styles.message}>{message}</div>
         <button className={styles.btn} onClick={loginBtnHandler}>
           <span>로그인</span>
         </button>

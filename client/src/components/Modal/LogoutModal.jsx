@@ -7,7 +7,7 @@ const LogoutModal = ({ modalOff, clearToken, setLogout, accessToken }) => {
     const logoutBtnHandler = () => {
       //로그아웃이란?
         // users/logout으로 POST요청(바디에는 accessToken)하고 성공하면
-        // app.js의 accessToken을 삭제하고, isLogin을 false로 바꾸고 모달창 끈다
+        // app.js의 accessToken을 삭제하고, myData도 삭제, isLogin을 false로 바꾸고 모달창 끈다
       axios.
         post('http://localhost:4000/users/logout',
         { message: 'Logout request with accessToken' },{
