@@ -8,6 +8,7 @@ const Mypage = ({ myData, accessToken, isModalShow, modalOff, clearToken, setLog
     const profileUp = () => {
       // users/mypage/update
       // 이미지 업로드 과정 질문하기 
+        //이미지를 url로 어떻게 변경?
       // PUT 메소드로 어떻게 내 정보 수정하는지 알아보기
       axios
         .put('http://localhost:4000/users/mypage/update',
@@ -52,7 +53,10 @@ const Mypage = ({ myData, accessToken, isModalShow, modalOff, clearToken, setLog
             <section className={styles.profileInfo}>
                 <div className={styles.thumbnail}>  
                     <img className={styles.thumbnailContainer} src={!myData.data.data.profilUrl ? "images/empty-profile.png" : "/images/myimg.jpeg"} />
-                    <button className={styles.uploadBtn} onClick={profileUp}>프로필 업로드</button>
+                    <div className={styles.input}>
+                      <label for="inputField" >프로필업로드 </label>
+                      <input type="file" id="inputField"  accept="image/jpeg"/>
+                    </div>
                     <button className={styles.deleteBtn} onClick={profileDelete}>프로필 삭제</button>
                 </div>
                 <div className={styles.nickDesc}>
