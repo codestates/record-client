@@ -42,7 +42,7 @@ p {
   margin: 10px;    
 }
 
-.uploadBtn {
+.input label {
   display: inline-flex;
   -webkit-box-align: center;
   align-items: center;
@@ -54,10 +54,22 @@ p {
   border: none;
   background: rgb(124, 117, 218);
   color: white;
-  padding: 0px 1.25rem;
+  padding: 0px 1.8rem;
   height: 2rem;
   font-size: 1rem;
 }
+
+.input input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 
 .deleteBtn {
   margin-top: 0.5rem;
