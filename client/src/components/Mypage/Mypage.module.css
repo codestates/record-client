@@ -1,13 +1,11 @@
 * {
   margin: 0;
   box-sizing: inherit;
-  
 }
 
 body {
   padding: 0;
   background-color: #f8f9fa;
-  
 }
   
 .mainContainer {
@@ -29,7 +27,7 @@ body {
 .nickDesc {
   flex: 1 1 0%;
   padding-left: 1.5rem;
-  border-left: 1px solid ;
+  border-left: 1px solid rgb(187, 185, 185) ;
 }
 
 .thumbnailContainer {
