@@ -4,12 +4,16 @@ import LogoutModal from '../Modal/LogoutModal'
 import axios from 'axios';
 
 const Mypage = ({ myData, accessToken, isModalShow, modalOff, clearToken, setLogout }) => {
-    console.log(myData)
+    
     const profileUp = () => {
       // users/mypage/update
       // 이미지 업로드 과정 질문하기 
-        //이미지를 url로 어떻게 변경?
+        //1. 이미지를 url로 변경하여 서버에 url전송
+        //2. myData state에 url 저장
+        //3. myData.data.data.profileUrl에 경로가 담겨 있다면 그걸 프로필 사진으로 렌더
       // PUT 메소드로 어떻게 내 정보 수정하는지 알아보기
+      const selectedFile = document.getElementById('inputField').files[0];
+      console.log(selectedFile)
       axios
         .put('http://localhost:4000/users/mypage/update',
         { data: {userInfo: {profileUrl: ""}} },
@@ -54,8 +58,8 @@ const Mypage = ({ myData, accessToken, isModalShow, modalOff, clearToken, setLog
                 <div className={styles.thumbnail}>  
                     <img className={styles.thumbnailContainer} src={!myData.data.data.profilUrl ? "images/empty-profile.png" : "/images/myimg.jpeg"} />
                     <div className={styles.input}>
-                      <label for="inputField" >프로필업로드 </label>
-                      <input type="file" id="inputField"  accept="image/jpeg"/>
+                      <label htmlFor="inputField" >프로필업로드</label>
+                      <input onClick={profileUp} type="file" id="inputField" accept="image/jpeg"/>
                     </div>
                     <button className={styles.deleteBtn} onClick={profileDelete}>프로필 삭제</button>
                 </div>
