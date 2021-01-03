@@ -7,7 +7,7 @@ const PostList = ({ post }) => {
     const history = useHistory();
     const [tags, setTags] = useState([])
     const [comments, setComments] = useState([])
-/*     useEffect(() => {
+    useEffect(() => {
       axios
         .get(`http://localhost:4000/posts/${post.id}/tags/read`, {
           headers: {
@@ -25,7 +25,7 @@ const PostList = ({ post }) => {
           }
         })
     }, []) 
-*/
+
 
     const detailHandler = (id) => {
       history.push({
