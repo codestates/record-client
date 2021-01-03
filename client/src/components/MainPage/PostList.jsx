@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios'
 
 const PostList = ({ post }) => {
+    const history = useHistory();
     const [tags, setTags] = useState([])
     const [comments, setComments] = useState([])
 /*     useEffect(() => {
@@ -23,10 +24,11 @@ const PostList = ({ post }) => {
             setTags([...res.data.tagsData])
           }
         })
-    }, []) */
+    }, []) 
+*/
 
     const detailHandler = (id) => {
-      history.pushState({
+      history.push({
         pathname: '/detail/' + id
       })
     }
@@ -38,7 +40,9 @@ const PostList = ({ post }) => {
             optio debitis consequuntur voluptas sit sequi iste non amet ratione dignissimos vitae sint? Odit commodi
             corporis id.
           </div> {/* {post.content.substring(0, 151)} */}
-          <div className={styles.tag}> </div> {/* {tags.length > 0 ? tags.forEach(tag => tag) : null} */}
+          <div className={styles.tagContainer}>
+            <div className={styles.tag}>글자</div> {/* {tags.length > 0 ? tags.forEach(tag => tag) : null} */}
+          </div>
           <div className={styles.date}>2021일 1월 1일 / 2개의 댓글</div> {/* {post.created_at} */}
           <hr />
           

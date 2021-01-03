@@ -16,8 +16,23 @@
   margin-top: 1rem;
 }
 
+.tagContainer {
+  background-color: rgb(37, 124, 182);
+  border-radius: 60%;
+  height: 2rem;
+  width: 1.2rem;
+  margin: 1rem;
+  padding: 0px;
+  object-fit: cover;
+  transform: scaleX(3);
+}
+
 .tag {
-  
+  text-align: center;
+  font-size: 0.2rem;
+  line-height: 35px;
+  height: 1.5rem;
+  width: 1.2rem
 }
 
 hr {

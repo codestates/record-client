@@ -25,7 +25,14 @@ const App = () => {
   useEffect(() => {
     setUserData(userSchema);
     setPostData(postSchema);
-  }, []);
+    const data = window.sessionStorage.getItem('data')
+    if (data) {
+      setIsLogin(true)
+    }else {
+      setIsLogin(false)
+    }
+  }, [isLogin]);
+
 
   const inputMyInfo = (userInfo) => {
     setMyData({
@@ -42,8 +49,8 @@ const App = () => {
   }
 
   const setLogout = () => {
+    setMyData({data: null})
     setIsLogin(false)
-    setMyData({data: null})  //새로고침해도 로그인 유지하도록 해야한다
   }
   return (
     <>

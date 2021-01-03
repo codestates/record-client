@@ -42,7 +42,7 @@ const MainPage = ({ isModalShow, myData, accessToken, modalOff, clearToken, setL
           <hr />
           <section className={styles.postList}>
             {listItems}
-            <PostList />
+            <PostList post={postData.map(post => post)}/>
           </section>
 
         {isModalShow && <LogoutModal modalOff={modalOff} clearToken={clearToken} setLogout={setLogout} accessToken={accessToken}/>}

@@ -10,7 +10,7 @@ const Mypage = ({ myData, accessToken, isModalShow, modalOff, clearToken, setLog
       // 이미지 업로드 과정 질문하기 
         //1. 이미지를 url로 변경하여 서버에 url전송
         //2. myData state에 url 저장
-        //3. myData.data.data.profileUrl에 경로가 담겨 있다면 그걸 프로필 사진으로 렌더
+        //3. myData.data.data.profileUrl에 데이터(url)이 담겨 있다면 그걸 기반으로 프로필 사진으로 렌더
       // PUT 메소드로 어떻게 내 정보 수정하는지 알아보기
       const selectedFile = document.getElementById('inputField').files[0];
       console.log(selectedFile)
