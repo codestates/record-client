@@ -9,6 +9,7 @@ import Post from './components/Post/Post';
 import Navbar from './components/Navbar/Navbar';
 import Detail from './components/Detail/Detail';
 import Mypage from './components/Mypage/Mypage'
+import MainPage from './components/MainPage/MainPage'
 import userSchema from './schema/user';
 import postSchema from './schema/post';
 const App = () => {
@@ -42,7 +43,7 @@ const App = () => {
 
   const setLogout = () => {
     setIsLogin(false)
-    setMyData({data: null})
+    setMyData({data: null})  //새로고침해도 로그인 유지하도록 해야한다
   }
   return (
     <>
@@ -72,12 +73,16 @@ const App = () => {
             />
           </Route>
           <Route path="/detail">
-            <Navbar isLogin={isLogin} />
-            <Detail userData={userData} />
+            <Navbar isLogin={isLogin} myData={myData} handleModal={handleModal}/>
+            <Detail userData={userData} isModalShow={isModalShow} myData={myData} accessToken={accessToken} modalOff={handleModal} clearToken={clearAccessToken} setLogout={setLogout} />
           </Route>
           <Route exact path="/mypage">
-            <Navbar isLogin={isLogin} myData={myData} handleModal={handleModal}/> {/* props작업 해줘야함, mypage에서도 로그아웃 할수 있도록  */}
+            <Navbar isLogin={isLogin} myData={myData} handleModal={handleModal}/> 
             <Mypage isModalShow={isModalShow} myData={myData} accessToken={accessToken} modalOff={handleModal} clearToken={clearAccessToken} setLogout={setLogout}/>
+          </Route>
+          <Route exact path="/mainpage">
+            <Navbar isLogin={isLogin} myData={myData} handleModal={handleModal}/>
+            <MainPage isModalShow={isModalShow} myData={myData} accessToken={accessToken} modalOff={handleModal} clearToken={clearAccessToken} setLogout={setLogout}/>
           </Route>
         </Switch>
       </Router>

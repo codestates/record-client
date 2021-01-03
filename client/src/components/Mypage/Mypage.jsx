@@ -16,17 +16,17 @@ const Mypage = ({ myData, accessToken, isModalShow, modalOff, clearToken, setLog
       console.log(selectedFile)
       axios
         .put('http://localhost:4000/users/mypage/update',
-        { data: {userInfo: {profileUrl: ""}} },
+        { data: {userInfo: {profileUrl: selectedFile}} },
         {
           headers: { 'Content-Type': 'application/json', authorizaiton: `Bearer ${accessToken}` },
           withCredentials: true,
         }
       )
       .then(res => {
-        console.log('프로필 이미지 업로드 성공')
         if (res.status === 401) {
             alert(res.message)
         }
+        console.log('프로필 이미지 업로드 성공')
       })
       .catch(err => console.log(err))
     }
@@ -41,7 +41,11 @@ const Mypage = ({ myData, accessToken, isModalShow, modalOff, clearToken, setLog
         }
       )
       .then(res => {
-          console.log('프로필 이미지 삭제 성공')
+          if (res.status === 200) {
+            //app.js의 유저정보에 profileUrl을 추가한다
+            //그렇게 추가한 경로를 img.src에 써주면 렌더가 되는 건가?
+            console.log('프로필 이미지 삭제 성공')
+          }
           if (res.status === 401) {
               alert(res.message)
           }
@@ -51,6 +55,8 @@ const Mypage = ({ myData, accessToken, isModalShow, modalOff, clearToken, setLog
 
     const descHandler = () => {
       // users/mypage/update PUT
+      axios
+        .put('http://localhost:4000/users/update',)
     }
     return (
         <div className={styles.mainContainer}>
@@ -59,7 +65,7 @@ const Mypage = ({ myData, accessToken, isModalShow, modalOff, clearToken, setLog
                     <img className={styles.thumbnailContainer} src={!myData.data.data.profilUrl ? "images/empty-profile.png" : "/images/myimg.jpeg"} />
                     <div className={styles.input}>
                       <label htmlFor="inputField" >프로필업로드</label>
-                      <input onClick={profileUp} type="file" id="inputField" accept="image/jpeg"/>
+                      <input onClick={profileUp} type="file" id="inputField" accept="image/jpeg, image/png" name="profileImg"/>
                     </div>
                     <button className={styles.deleteBtn} onClick={profileDelete}>프로필 삭제</button>
                 </div>
@@ -81,7 +87,7 @@ const Mypage = ({ myData, accessToken, isModalShow, modalOff, clearToken, setLog
                 <div>
                     <div className={styles.wrapper}>
                         <h3 className={styles.infoName}>email</h3>
-                        <div className={styles.infoTwo}>{myData.data.data.nickname}</div>
+                        <div className={styles.infoTwo}>{myData.data.data.email}</div>
                     </div>
                     <div className={styles.description}>회원가입할 때 등록한 이메일입니다.</div>
                     <hr/>

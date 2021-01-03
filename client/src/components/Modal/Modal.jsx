@@ -4,7 +4,9 @@ import { useHistory } from 'react-router-dom';
 const Modal = ({ handleModal }) => {
   const history = useHistory()
   const myBlogHandler = () => {
-    console.log('내블로그')
+    history.push({
+      pathname: 'mainpage'
+    })
   };
   
   const logoutModalHandler = () => {
@@ -12,7 +14,6 @@ const Modal = ({ handleModal }) => {
   };
 
   const myPageHandler = () => {
-    console.log('내정보페이지')
     history.push({
       pathname: '/mypage'
     })

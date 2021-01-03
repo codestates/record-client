@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styles from '../Modal/LogoutModal.module.css';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 const LogoutModal = ({ modalOff, clearToken, setLogout, accessToken }) => {
     const [ errMessage, setErrMessage ] = useState(false)
+    const history = useHistory();
     const logoutBtnHandler = () => {
       //로그아웃이란?
         // users/logout으로 POST요청(바디에는 accessToken)하고 성공하면
@@ -14,13 +16,15 @@ const LogoutModal = ({ modalOff, clearToken, setLogout, accessToken }) => {
           headers: {
               Authorization: `Bearer ${accessToken}`,
               "Content-Type": "application/json"
-            },
-            withCredentials: true
+          },
+          withCredentials: true
         }
         )
         .then((res) => {
-            console.log(res)
             if (res.status === 200) {
+              history.push({
+                pathname: '/',
+              });
               clearToken();
               setLogout();
               modalOff();
