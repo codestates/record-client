@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../Login/Login.module.css';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
@@ -7,6 +7,7 @@ const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
 
   const [loginInfo, setLoginInfo] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('')
+
   const loginHandler = (e) => {
     let login = { ...loginInfo, [e.target.name]: e.currentTarget.value };
     setLoginInfo(login);
@@ -59,6 +60,7 @@ const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
             /* 에러핸들링: 토큰 없을 때, 토큰이 유효하지 않을 때 조건문 추가*/
             inputMyInfo(userInfo);
             setIsLogin(true);
+            sessionStorage.setItem('data', userInfo.data)
             history.push({
               pathname: '/',
             });
