@@ -42,14 +42,16 @@ const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
       )
       .then((res) => {
         if (res.status === 400) {
-          alert('일치하는 유저정보가 없습니다');
+          alert('invalid access token');
+        }else if (res.status === 401) {
+          alert('access token has been tempered')
         }
-        setAccessToken(res.data.data.accessToken);
-        return res.data.data.accessToken;
+        setAccessToken(res.data.accessToken);
+        return res.data.accessToken;
       })
       .then((token) => {
         return axios
-          .get('http://localhost:4000/accessTokenRequest', {
+          .get('http://localhost:4000/users/accessTokenRequest', {
             headers: {
               authorization: `Bearer ${token}`,
               'Content-Type': 'application/json',
@@ -58,9 +60,10 @@ const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
           })
           .then((userInfo) => {
             /* 에러핸들링: 토큰 없을 때, 토큰이 유효하지 않을 때 조건문 추가*/
-            inputMyInfo(userInfo.data.data.userInfo);
+            console.log(userInfo)
+            inputMyInfo(userInfo.data.userInfo);
             setIsLogin(true);
-            window.sessionStorage.setItem('data', JSON.stringify(userInfo.data.data.userInfo))
+            window.sessionStorage.setItem('data', JSON.stringify(userInfo.data.userInfo))
             history.push({
               pathname: '/',
             });

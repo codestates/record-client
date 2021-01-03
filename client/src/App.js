@@ -20,7 +20,6 @@ const App = () => {
   const [myData, setMyData] = useState({ data: null });
   const [isModalShow, setIsModalShow] = useState(false)
   //로그인한 사용자의 데이터, 어떤 컴포넌트로 내려줘야 할까?
-  console.log(myData.data)
   useEffect(() => {
     setUserData(userSchema);
     setPostData(postSchema);
