@@ -58,9 +58,9 @@ const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
           })
           .then((userInfo) => {
             /* 에러핸들링: 토큰 없을 때, 토큰이 유효하지 않을 때 조건문 추가*/
-            inputMyInfo(userInfo);
+            inputMyInfo(userInfo.data.data.userInfo);
             setIsLogin(true);
-            sessionStorage.setItem('data', userInfo.data)
+            window.sessionStorage.setItem('data', JSON.stringify(userInfo.data.data.userInfo))
             history.push({
               pathname: '/',
             });
@@ -68,18 +68,6 @@ const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
           .catch((err) => console.log(`server err: ${err}`));
       });
   };
-
-  // const loginBtnHanlder2 = () => {
-  //   axios.post('localhost4000:user/login', loginInfo)
-  //   .then(res => {
-  //     if(res.status(200)) {
-  //       setIsLogin(true);
-  //       history.push({
-  //         pathname: '/',
-  //       });
-  //     }
-  //   })
-  // }
 
   return (
     <section className={styles.section}>
