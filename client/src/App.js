@@ -19,24 +19,24 @@ const App = () => {
   const [accessToken, setAccessToken] = useState(''); //로그인 요청의 응답으로 받은 토큰
   const [myData, setMyData] = useState({ data: null });
   const [isModalShow, setIsModalShow] = useState(false)
-
   //로그인한 사용자의 데이터, 어떤 컴포넌트로 내려줘야 할까?
-  console.log(myData)
+  console.log(myData.data)
   useEffect(() => {
     setUserData(userSchema);
     setPostData(postSchema);
-    const data = window.sessionStorage.getItem('data')
+    const data = sessionStorage.getItem('data')
     if (data) {
       setIsLogin(true)
+      setMyData({data: JSON.parse(data) })
     }else {
       setIsLogin(false)
     }
-  }, [isLogin]);
+  }, []);
 
 
   const inputMyInfo = (userInfo) => {
     setMyData({
-      data: userInfo.data,
+      data: userInfo,
     });
   };
 
@@ -80,16 +80,16 @@ const App = () => {
             />
           </Route>
           <Route path="/detail">
-            <Navbar isLogin={isLogin} myData={myData} handleModal={handleModal}/>
-            <Detail userData={userData} isModalShow={isModalShow} myData={myData} accessToken={accessToken} modalOff={handleModal} clearToken={clearAccessToken} setLogout={setLogout} />
+            <Navbar isLogin={isLogin} myData={myData.data} handleModal={handleModal}/>
+            <Detail userData={userData} isModalShow={isModalShow} myData={myData.data} accessToken={accessToken} modalOff={handleModal} clearToken={clearAccessToken} setLogout={setLogout} />
           </Route>
           <Route exact path="/mypage">
-            <Navbar isLogin={isLogin} myData={myData} handleModal={handleModal}/> 
-            <Mypage isModalShow={isModalShow} myData={myData} accessToken={accessToken} modalOff={handleModal} clearToken={clearAccessToken} setLogout={setLogout}/>
+            <Navbar isLogin={isLogin} myData={myData.data} handleModal={handleModal}/> 
+            <Mypage isModalShow={isModalShow} myData={myData.data} accessToken={accessToken} modalOff={handleModal} clearToken={clearAccessToken} setLogout={setLogout}/>
           </Route>
           <Route exact path="/mainpage">
-            <Navbar isLogin={isLogin} myData={myData} handleModal={handleModal}/>
-            <MainPage isModalShow={isModalShow} myData={myData} accessToken={accessToken} modalOff={handleModal} clearToken={clearAccessToken} setLogout={setLogout}/>
+            <Navbar isLogin={isLogin} myData={myData.data} handleModal={handleModal}/>
+            <MainPage isModalShow={isModalShow} myData={myData.data} accessToken={accessToken} modalOff={handleModal} clearToken={clearAccessToken} setLogout={setLogout}/>
           </Route>
         </Switch>
       </Router>
