@@ -24,9 +24,11 @@ const App = () => {
     setUserData(userSchema);
     setPostData(postSchema);
     const data = sessionStorage.getItem('data')
-    if (data) {
+    const token = sessionStorage.getItem('token')
+    if (data && token) {
       setIsLogin(true)
-      setMyData({data: JSON.parse(data) })
+      setMyData({data: JSON.parse(data)})
+      setAccessToken(token)
     }else {
       setIsLogin(false)
     }

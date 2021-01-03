@@ -47,6 +47,7 @@ const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
           alert('access token has been tempered')
         }
         setAccessToken(res.data.accessToken);
+        window.sessionStorage.setItem('token', res.data.accessToken)
         return res.data.accessToken;
       })
       .then((token) => {
