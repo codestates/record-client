@@ -27,7 +27,7 @@ body {
 .nickDesc {
   flex: 1 1 0%;
   padding-left: 1.5rem;
-  border-left: 1px solid rgb(187, 185, 185) ;
+  border-left: 1px solid rgb(180, 166, 166) ;
 }
 
 .thumbnailContainer {

@@ -3,8 +3,9 @@ import styles from '../Detail/Detail.module.css';
 import postData from '../../schema/post';
 import userData from '../../schema/user';
 import comments from '../../schema/comment';
+import LogoutModal from '../Modal/LogoutModal';
 // import axios from 'axios';
-const Detail = () => {
+const Detail = ({ isModalShow, myData, accessToken, modalOff, clearToken, setLogout }) => {
   const [commentData, setCommentData] = useState([]);
   const [currentPost, setCurrentPost] = useState({});
   let currentUrl = window.location.href.split('/')[4];
@@ -220,6 +221,7 @@ const Detail = () => {
           ))}
         </article>
       </div>
+      {isModalShow && <LogoutModal modalOff={modalOff} clearToken={clearToken} setLogout={setLogout} accessToken={accessToken}/>}
     </section>
   );
 };
