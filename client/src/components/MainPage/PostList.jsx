@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../MainPage/PostList.module.css'
+import { useHistory } from 'react-router-dom';
 import axios from 'axios'
 
 const PostList = ({ post }) => {
@@ -23,9 +24,15 @@ const PostList = ({ post }) => {
           }
         })
     }, []) */
+
+    const detailHandler = (id) => {
+      history.pushState({
+        pathname: '/detail/' + id
+      })
+    }
     return (
         <div className={styles.container}>
-          <h2 className={styles.title}>타이틀</h2>  {/* {post.title} */}
+          <h2 className={styles.title} onClick={() => {detailHandler(post.id)}}>타이틀</h2>  {/* {post.title} */}
           <div className={styles.content}>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus accusantium, obcaecati ab nostrum 
             optio debitis consequuntur voluptas sit sequi iste non amet ratione dignissimos vitae sint? Odit commodi
