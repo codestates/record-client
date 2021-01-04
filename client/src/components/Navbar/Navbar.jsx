@@ -71,16 +71,19 @@ const Navbar = ({ isLogin, myData, handleModal }) => {
             <button className={styles.writeBtn} onClick={writeBtnHandler}>
               새글작성
             </button>
-            <div className={styles.background} onClick={modalHandler}>
-              <img
-                className={styles.profile}
-                src="/images/myimg.jpeg" //myData.data.profileImg값이 있으면 그걸 렌더
-                alt="profile"
-              />
-            </div>
-            <div className={styles.modalContainer} >
-                {isModal && <Modal handleModal={handleModal} />}
+            <div className={styles.profileContainer}>
+                <div className={styles.background} onClick={modalHandler}>
+                <img
+                  className={styles.profile}
+                  src="/images/myimg.jpeg" //myData.data.profileImg값이 있으면 그걸 렌더
+                  alt="profile"
+                />
               </div>
+              <div className={styles.modalContainer} >
+                  {isModal && <Modal handleModal={handleModal} />}
+                </div>
+            </div>
+           
           </div>
         )}
       </nav>

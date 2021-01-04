@@ -3,12 +3,9 @@ import styles from '../Mypage/Mypage.module.css'
 import LogoutModal from '../Modal/LogoutModal'
 import axios from 'axios';
 
+
 const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearToken, setLogout }) => {
     const [Url, setUrl] = useState('')
-    useEffect(() => {
-      console.log(myData)
-      document.getElementById('profile').src = myData.profileUrl
-    }, [myData])
 
     const profileUp = async () => {
  
@@ -17,10 +14,9 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
           let file = document.getElementById('inputField')
           file.onchange = function (e) {
             let fileReader = new FileReader();
-            fileReader.readAsDataURL(e.target.files[0])
+            fileReader.readAsArrayBuffer(e.target.files[0])
             fileReader.onload = function (e) {
               window.sessionStorage.setItem('url', e.target.result)
-              document.getElementById('profile').src = e.target.result;
               resolve(e.target.result)
             }
             fileReader.onerror = reject;
@@ -28,9 +24,19 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
         })
       }
       getUrl().then((pic) => {
+        console.log(pic)
+
+        let arrayBufferView = new Uint8Array(pic)
+        let blob = new Blob([arrayBufferView], {type: 'image/png'})
+        console.log(blob)
+        let urlCreator = window.URL || window.webkitURL;
+        let imageUrls = urlCreator.createObjectURL(blob)
+        console.log(imageUrls)
+        document.getElementById('profile').src = imageUrls
+
         return axios
         .put('http://localhost:4000/users/mypage/update',
-        { ...myData, profileUrl: sessionStorage.getItem('url') },
+        { ...myData, profileUrl: pic },
         {
           headers: { 
             'Content-Type': 'application/json',
@@ -46,14 +52,19 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
         }else if (res.status === 401) {
           alert('not authorized')
           document.getElementById('profile').src = "images/empty-profile.png"
-        }else {
-          console.log(myData)
-          setMyData({data: {
-            ...myData,
-            profileUrl: res.data.userInfo.profileUrl
-            }
-          })
-          console.log(myData)
+        } else {
+          console.log(res.data.userInfo.profileUrl)
+/*           let arrayBufferView = new Uint8Array(res.data.userInfo.profileUrl.data)
+          let blob = new Blob([arrayBufferView], {type: 'image/png'})
+          console.log(blob)
+          let urlCreator = window.URL || window.webkitURL;
+          let imageUrls = urlCreator.createObjectURL(blob)
+          console.log(imageUrls)
+ */           
+
+        
+
+          
           console.log('프로필 이미지 업로드 성공')
         }
       })
@@ -95,17 +106,13 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
       .catch(err => console.log('server err ' + err))
     }
 
-    const descHandler = () => {
-      // users/mypage/update PUT
-      axios
-        .put('http://localhost:4000/users/update',)
-    }
+    
     return (
         <div className={styles.mainContainer}>
             <section className={styles.profileInfo}>
                 <div className={styles.thumbnail}>  
                     <img className={styles.thumbnailContainer} id="profile" src="images/empty-profile.png" />  {/* {!myData.data.data.profilUrl ? "images/empty-profile.png" : "/images/myimg.jpeg"} */}  
-                    <form className={styles.input}>
+                    <form className={styles.input}  >
                       <label htmlFor="inputField" >프로필업로드</label>
                       <input onClick={profileUp} type="file" id="inputField" accept="image/jpeg, image/png" name="profileImg"/>
                     </form>
@@ -114,7 +121,6 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
                 <div className={styles.nickDesc}>
                     <h2>{myData.username}</h2>
                     <p>{myData.introduce}</p>
-                    <button className={styles.uploadBtn} onClick={descHandler}>수정</button>
                 </div>
             </section>
             <section className={styles.userInfo}> {/* 닉네임, githubUrl, email */}
@@ -132,14 +138,6 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
                         <div className={styles.infoTwo}>{myData.email}</div>
                     </div>
                     <div className={styles.description}>회원가입할 때 등록한 이메일입니다.</div>
-                    <hr/>
-                </div>
-                <div>
-                    <div className={styles.wrapper}>
-                        <h3 className={styles.infoName}>githubUrl</h3>
-                        <div className={styles.infoThree}>{myData.githubUrl}</div>
-                    </div>
-                    <div className={styles.description}>깃허브 url입니다</div>
                     <hr/>
                 </div>
             </section>
