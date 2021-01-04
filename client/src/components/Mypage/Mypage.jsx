@@ -6,9 +6,8 @@ import axios from 'axios';
 const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearToken, setLogout }) => {
     const [Url, setUrl] = useState('')
     useEffect(() => {
-      if (myData.profileUrl) {
-        document.getElementById('profile').src = myData.profileUrl
-      }
+      console.log(myData)
+      document.getElementById('profile').src = myData.profileUrl
     }, [myData])
 
     const profileUp = async () => {
@@ -48,7 +47,12 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
           alert('not authorized')
           document.getElementById('profile').src = "images/empty-profile.png"
         }else {
-          setMyData({data: res.data.userInfo})
+          console.log(myData)
+          setMyData({data: {
+            ...myData,
+            profileUrl: res.data.userInfo.profileUrl
+            }
+          })
           console.log(myData)
           console.log('프로필 이미지 업로드 성공')
         }
@@ -100,7 +104,7 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
         <div className={styles.mainContainer}>
             <section className={styles.profileInfo}>
                 <div className={styles.thumbnail}>  
-                    <img className={styles.thumbnailContainer} id="profile" src="images/empty-profile.png"/>  {/* {!myData.data.data.profilUrl ? "images/empty-profile.png" : "/images/myimg.jpeg"} */}  
+                    <img className={styles.thumbnailContainer} id="profile" src="images/empty-profile.png" />  {/* {!myData.data.data.profilUrl ? "images/empty-profile.png" : "/images/myimg.jpeg"} */}  
                     <form className={styles.input}>
                       <label htmlFor="inputField" >프로필업로드</label>
                       <input onClick={profileUp} type="file" id="inputField" accept="image/jpeg, image/png" name="profileImg"/>

@@ -31,7 +31,8 @@ const App = () => {
     const profile = sessionStorage.getItem('profile')
     if (data && token) {
       setIsLogin(true)
-      setMyData({data: JSON.parse(data), profileUrl: profile})
+      let profileUrl = profile
+      setMyData({data: JSON.parse(data), profileUrl})
       setAccessToken(token)
     }else {
       setIsLogin(false)
