@@ -3,10 +3,10 @@
   border: 0px solid;
   padding: 10px;
   background-color: rgb(255, 255, 255);
-  margin-top: 0.5rem;
-  margin-right: -2.8rem;
+  margin-top: 1.5rem;
+  margin-right: -10rem;
   color: rgb(0, 0, 0);
   border-radius: 10%;
   box-shadow: 2px 2px 4px black, 0 0 15px rgb(236, 222, 236), 0 0 30px rgb(235, 231, 238);
-
+  z-index: 90999;
 }

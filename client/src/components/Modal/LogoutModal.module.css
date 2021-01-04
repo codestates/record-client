@@ -2,7 +2,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    border: 1px black solid;
+    border: 0px black solid;
     background-color: rgb(255, 255, 255);
     margin: 10px;
     padding: 10px;
@@ -15,23 +15,23 @@
 }
 
 .message {
-  text-align: center;
-  font-weight: bolder;
-  font-size: 1.5rem;
-  color: rgb(0, 0, 0);
-  margin-top: 10px;
+   text-align: center;
+   font-weight: bolder;
+   font-size: 1.5rem;
+   color: rgb(0, 0, 0);
+   margin-top: 10px;
 }
 
 .btnContainer {
-    text-align: center;
-    position: fixed;
-    top: 40%;
-    left: 25%;
-    padding: 10px;
-    width: 380px;
-    height: 60px;
-    display: flex;
-    margin-top: 10px;
+   text-align: center;
+   position: fixed;
+   top: 40%;
+   left: 25%;
+   padding: 10px;
+   width: 380px;
+   height: 60px;
+   display: flex;
+   margin-top: 10px;
 }
 
 .yesBtn {
@@ -56,12 +56,5 @@
    background-color:transparent;
    border:0 solid black;
    color: rgb(21, 20, 41);
-
-
-
-
-}
-.container > .message {
-    color: rgb(116, 111, 111)
 }
 
