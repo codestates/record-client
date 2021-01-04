@@ -9,16 +9,59 @@
     width: 480px;
     height: 150px;
     transform: translate(-200px, -150px);
+    box-shadow: 5px 5px 10px black, 0 0 15px rgb(223, 208, 223), 0 0 30px rgb(135, 125, 146);
+    background-color: #f8f9fa; 
+    outline: none;
+}
+
+.message {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 1.5rem;
+  color: rgb(0, 0, 0);
+  margin-top: 10px;
 }
 
 .btnContainer {
     text-align: center;
+    position: fixed;
+    top: 40%;
+    left: 25%;
     padding: 10px;
-    width: 80px;
-    height: 10px;
+    width: 380px;
+    height: 60px;
+    display: flex;
+    margin-top: 10px;
 }
- 
+
+.yesBtn {
+   margin-right: 20px;
+   font-size: 1.5rem;
+   font-weight: bold;
+   cursor: pointer;
+   outline: none;
+   border-radius: 10%;
+   background-color: rgb(21, 20, 41);
+   border:0 solid black;
+   width: 5rem;
+   color: white;
+}
+.noBtn {
+   margin-left: 70px;
+   font-size: 1.5rem;
+   font-weight: bold;
+   cursor: pointer;
+   outline: none;
+   border-radius: 10%;
+   background-color:transparent;
+   border:0 solid black;
+   color: rgb(21, 20, 41);
+
+
+
+
+}
 .container > .message {
-    color: red
+    color: rgb(116, 111, 111)
 }
 
