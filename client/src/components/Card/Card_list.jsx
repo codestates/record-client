@@ -1,14 +1,19 @@
 import React from 'react';
 import CardItem from './Card_item';
 import styles from '../Card/Card_list.module.css';
-const Cardlist = ({ userData, postData }) => {
+const Cardlist = ({ posts, users }) => {
   return (
     <ul className={styles.cardList}>
-      {postData
+      {posts
         .slice(0)
         .reverse()
         .map((item) => (
-          <CardItem key={item.id} postData={item} userData={userData} />
+          <CardItem
+            key={item.id}
+            postData={item}
+            userData={users}
+            imageUrl={item.imageUrl}
+          />
         ))}
     </ul>
   );

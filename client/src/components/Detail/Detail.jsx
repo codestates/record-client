@@ -1,64 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../Detail/Detail.module.css';
-import postData from '../../schema/post';
-import userData from '../../schema/user';
-import comments from '../../schema/comment';
 import LogoutModal from '../Modal/LogoutModal';
-// import axios from 'axios';
-const Detail = ({ isModalShow, myData, accessToken, modalOff, clearToken, setLogout }) => {
-  const [commentData, setCommentData] = useState([]);
-  const [currentPost, setCurrentPost] = useState({});
+import axios from 'axios';
+const Detail = ({
+  isModalShow,
+  accessToken,
+  modalOff,
+  clearToken,
+  setLogout,
+}) => {
+  const [comments, setComments] = useState([]);
+  const [post, setPost] = useState([]);
+  const [user, setUser] = useState([]);
   let currentUrl = window.location.href.split('/')[4];
-  const [coco, setCoco] = useState({
-    id: 12,
+  const [usercomment, setUsercomment] = useState({
+    id: '',
     comment: '',
-    username: 'feels',
+    username: '',
     postId: currentUrl,
-    userImg: 'https://placeimg.com/400/200/sepia',
-    created_at: '12월12일',
-    update_at: '12월12일',
+    userImg: '',
+    created_at: '',
+    update_at: '',
   });
 
   const commentBtnHandler = (e) => {
-    let newComment = { ...coco, [e.target.name]: e.currentTarget.value };
-    setCoco(newComment);
+    let newComment = { ...usercomment, [e.target.name]: e.currentTarget.value };
+    setUsercomment(newComment);
   };
 
   const btn = () => {
-    let commentUpdate = [...commentData];
-    commentUpdate.push(coco);
-    setCommentData(commentUpdate);
+    let commentUpdate = [...comments];
+    commentUpdate.push(usercomment);
+    setUsercomment(commentUpdate);
   };
 
   useEffect(() => {
-    // axios
-    //   .get('localhost:4000/posts/read', {
-    //     headers: { 'Content-type': 'apllycation/json' },
-    //     withCredentials: true,
-    //   })
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       let currentUrl = window.location.href.split('/')[4];
-    //       let currentPost = res.data.filter(
-    //         (datas) => datas.id + '' === currentUrl
-    //       );
-    //       setCurrentPost(currentPost[0]);
-    //     }
-    //   })
-    //   .then(currentPost => {
-    //     currentPost.userId
-    //     let currentUser  = userData.filter(data => data.id === currentPost.userId)
-    //     setCurrentUser(currentUser)
-    //   })
-    //   .catch((err) => console.log(err));
-
     let currentUrl = window.location.href.split('/')[4];
-    let currentPost = postData.filter((data) => data.id + '' === currentUrl);
-    setCurrentPost(currentPost[0]);
-    let currentComment = comments.filter(
-      (data) => data.postId + '' === currentUrl
-    );
-    setCommentData(currentComment);
+    axios.get(`http://localhost:4000/posts/${currentUrl}/read`).then((res) => {
+      if (res.status === 200) {
+        setPost(res.data.postData);
+        setUser(res.data.userInfo);
+      }
+    });
+    axios
+      .get(`http://localhost:4000/comments/post/${currentUrl}/read`)
+      .then((res) => {
+        setComments(res.data);
+      });
   }, []);
 
   return (
@@ -67,11 +55,11 @@ const Detail = ({ isModalShow, myData, accessToken, modalOff, clearToken, setLog
         {/* Header */}
         <article>
           <div className={styles.titleContainer}>
-            <h1 className={styles.title}>{currentPost.title}</h1>
+            <h1 className={styles.title}>{post.title}</h1>
             <div className={styles.spanContainer}>
-              <span className={styles.nickname}>{userData[0].username}</span>
+              <span className={styles.nickname}>{user.username}</span>
               <span className={styles.circle}>·</span>
-              <span className={styles.date}>{currentPost.created_at}</span>
+              <span className={styles.date}>{post.createdAt}</span>
               <div className={styles.secondTitle}>
                 <svg
                   className={styles.svgbox}
@@ -85,7 +73,7 @@ const Detail = ({ isModalShow, myData, accessToken, modalOff, clearToken, setLog
                     d="M32 0H0v48h.163l16-16L32 47.836V0z"
                   ></path>
                 </svg>
-                <h1>{currentPost.title}</h1>
+                <h1>{post.title}</h1>
               </div>
             </div>
           </div>
@@ -93,14 +81,10 @@ const Detail = ({ isModalShow, myData, accessToken, modalOff, clearToken, setLog
         {/* Content */}
         <article>
           <div className={styles.contentImgContainer}>
-            <img
-              className={styles.contentImg}
-              src={currentPost.fileUrl}
-              alt=""
-            />
+            <img className={styles.contentImg} src={post.imageUrl} alt="" />
           </div>
           <div className={styles.contentContainer}>
-            <p className={styles.content}>{currentPost.contents}</p>
+            <p className={styles.content}>{post.contents}</p>
           </div>
         </article>
 
@@ -109,11 +93,11 @@ const Detail = ({ isModalShow, myData, accessToken, modalOff, clearToken, setLog
           <div className={styles.footerContainer}>
             <img
               className={styles.footerUserImg}
-              src={userData[0].userImg}
+              src={user.profileUrl}
               alt=""
             />
             <div>
-              <h2 className={styles.footerUsername}>{userData[0].username}</h2>
+              <h2 className={styles.footerUsername}>{user.username}</h2>
             </div>
           </div>
           <div className={styles.footerLine}></div>
@@ -153,7 +137,7 @@ const Detail = ({ isModalShow, myData, accessToken, modalOff, clearToken, setLog
               </a>
             </div>
             <div className={styles.email}>
-              <a href={`mailto:${userData.email}`}>
+              <a href={`mailto:${user.email}`}>
                 <svg
                   width="32"
                   height="32"
@@ -173,7 +157,11 @@ const Detail = ({ isModalShow, myData, accessToken, modalOff, clearToken, setLog
 
         <article>
           <div className={styles.commentContainer}>
-            <h4>{commentData.length}개의 댓글</h4>
+            {comments.commentData === undefined ? (
+              <h4>0개의 댓글</h4>
+            ) : (
+              <h4>{comments.length}개의 댓글</h4>
+            )}
             <textarea
               className={styles.commentText}
               name="comment"
@@ -191,37 +179,42 @@ const Detail = ({ isModalShow, myData, accessToken, modalOff, clearToken, setLog
         </article>
 
         <article>
-          {commentData.map((comment) => (
-            <div className={styles.secondCommentContainer}>
-              <div className={styles.box}>
-                <div className={styles.profile}>
-                  <img
-                    className={styles.secondCommentImg}
-                    src={comment.userImg}
-                  />
-                  <div className={styles.commentinfo}>
-                    <div className={styles.commentusername}>
-                      <span>{comment.username}</span>
-                    </div>
-                    <div className={styles.commentdate}>
-                      <span>{comment.created_at}</span>
-                    </div>
+          <div className={styles.secondCommentContainer}>
+            <div className={styles.box}>
+              <div className={styles.profile}>
+                <img
+                  className={styles.secondCommentImg}
+                  src={comments.userImg}
+                />
+                <div className={styles.commentinfo}>
+                  <div className={styles.commentusername}>
+                    <span>{comments.username}</span>
+                  </div>
+                  <div className={styles.commentdate}>
+                    <span>{comments.created_at}</span>
                   </div>
                 </div>
-                {/* <div className={styles.action}>
+              </div>
+              {/* <div className={styles.action}>
               <span>수정</span>
               <span>삭제</span>
             </div> */}
-              </div>
-              <div className={styles.commentInfo}>
-                <p>{comment.comment}</p>
-              </div>
-              <div className={styles.commentLine}></div>
             </div>
-          ))}
+            <div className={styles.commentInfo}>
+              <p>{comments.comment}</p>
+            </div>
+            <div className={styles.commentLine}></div>
+          </div>
         </article>
       </div>
-      {isModalShow && <LogoutModal modalOff={modalOff} clearToken={clearToken} setLogout={setLogout} accessToken={accessToken}/>}
+      {isModalShow && (
+        <LogoutModal
+          modalOff={modalOff}
+          clearToken={clearToken}
+          setLogout={setLogout}
+          accessToken={accessToken}
+        />
+      )}
     </section>
   );
 };
