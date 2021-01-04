@@ -1,7 +1,10 @@
 import React from 'react';
 import styles from '../Card/Card_item.module.css';
 import { useHistory } from 'react-router-dom';
-const CardItem = ({ postData, userData }) => {
+const CardItem = ({ postData, userData, imageUrl }) => {
+  let createdAt = `${postData.createdAt.split('-')[0]}년 ${
+    postData.createdAt.split('-')[1]
+  }월`;
   const history = useHistory();
   const detatilHandler = (id) => {
     history.push({
@@ -16,15 +19,13 @@ const CardItem = ({ postData, userData }) => {
           detatilHandler(postData.id);
         }}
       >
-        {postData.fileUrl === '' ? null : (
-          <img className={styles.thumnail} src={postData.fileUrl} alt="" />
+        {postData.imageUrl === '' ? null : (
+          <img className={styles.thumnail} src={imageUrl} alt="" />
         )}
         <div className={styles.contentBox}>
           <p className={styles.title}>{postData.title}</p>
           <p className={styles.desc}>{postData.contents}</p>
-          <span className={styles.date}>
-            {postData.created_at} . {postData.comment}
-          </span>
+          <span className={styles.date}>{createdAt}</span>
         </div>
         <div className={styles.footer}>
           {userData.map((user) => {
@@ -32,7 +33,11 @@ const CardItem = ({ postData, userData }) => {
             if (user.id === postData.userId) {
               users = (
                 <div key={user.id}>
-                  <img className={styles.userImg} src={user.userImg} alt="" />
+                  <img
+                    className={styles.userImg}
+                    src={user.profileUrl}
+                    alt=""
+                  />
                   <span className={styles.userId}>
                     by <b>{user.username}</b>
                   </span>

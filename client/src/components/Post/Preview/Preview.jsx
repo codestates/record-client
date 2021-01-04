@@ -5,15 +5,16 @@ const Preview = ({ postContent, postBtnHandler, setPostContent }) => {
     e.preventDefault();
     let reader = new FileReader();
     let file = e.currentTarget.files[0];
+    reader.readAsDataURL(file);
     reader.onloadend = () => {
       let postImg = { ...postContent, [e.target.name]: reader.result };
       setPostContent(postImg);
+      console.log(postImg);
     };
-    reader.readAsDataURL(file);
   };
 
   const fileRemoveHandler = (e) => {
-    let postImg = { ...postContent, fileUrl: '' };
+    let postImg = { ...postContent, imageUrl: '' };
     setPostContent(postImg);
   };
   return (
@@ -26,7 +27,7 @@ const Preview = ({ postContent, postBtnHandler, setPostContent }) => {
               <input
                 className={styles.labelInput}
                 id="file"
-                name="fileUrl"
+                name="imageUrl"
                 type="file"
                 accept=".jpg, .png, .jpeg, .gif"
                 onChange={(e) => {
@@ -45,7 +46,7 @@ const Preview = ({ postContent, postBtnHandler, setPostContent }) => {
             이미지 제거
           </button>
           <div className={styles.imgContainer}>
-            {postContent.fileUrl === '' ? (
+            {postContent.imageUrl === '' ? (
               <svg width="107" height="85" fill="none" viewBox="0 0 107 85">
                 <path
                   fill="#868E96"
@@ -58,7 +59,7 @@ const Preview = ({ postContent, postBtnHandler, setPostContent }) => {
               </svg>
             ) : (
               <img
-                src={postContent.fileUrl}
+                src={postContent.imageUrl}
                 alt=""
                 className={styles.previewImg}
               />
