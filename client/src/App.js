@@ -20,14 +20,18 @@ const App = () => {
   const [myData, setMyData] = useState({ data: null });
   const [isModalShow, setIsModalShow] = useState(false)
   //로그인한 사용자의 데이터, 어떤 컴포넌트로 내려줘야 할까?
+
   useEffect(() => {
+    console.log(myData)
+
     setUserData(userSchema);
     setPostData(postSchema);
     const data = sessionStorage.getItem('data')
     const token = sessionStorage.getItem('token')
+    const profile = sessionStorage.getItem('profile')
     if (data && token) {
       setIsLogin(true)
-      setMyData({data: JSON.parse(data)})
+      setMyData({data: JSON.parse(data), profileUrl: profile})
       setAccessToken(token)
     }else {
       setIsLogin(false)
@@ -86,7 +90,7 @@ const App = () => {
           </Route>
           <Route exact path="/mypage">
             <Navbar isLogin={isLogin} myData={myData.data} handleModal={handleModal}/> 
-            <Mypage isModalShow={isModalShow} myData={myData.data} accessToken={accessToken} modalOff={handleModal} clearToken={clearAccessToken} setLogout={setLogout}/>
+            <Mypage setMyData={setMyData} isModalShow={isModalShow} myData={myData.data} accessToken={accessToken} modalOff={handleModal} clearToken={clearAccessToken} setLogout={setLogout}/>
           </Route>
           <Route exact path="/mainpage">
             <Navbar isLogin={isLogin} myData={myData.data} handleModal={handleModal}/>
