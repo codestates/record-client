@@ -28,8 +28,6 @@ const App = () => {
       }
     });
 
-    setUserData(userSchema);
-    setPostData(postSchema);
     const data = sessionStorage.getItem('data');
     const token = sessionStorage.getItem('token');
     const profile = sessionStorage.getItem('profile');
