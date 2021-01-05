@@ -39,7 +39,7 @@ const Post = ({ posts, setPosts, accessToken }) => {
     const { title, contents, imageUrl, tagNames } = postContent;
 
     axios.post(
-      'http://localhost:4000/posts/create',
+      'http://18.188.241.229/posts/create',
       { ...postContent, title, contents, imageUrl, tagNames },
       {
         headers: {

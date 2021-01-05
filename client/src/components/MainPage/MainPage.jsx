@@ -8,7 +8,7 @@ const MainPage = ({ isModalShow, myData, accessToken, modalOff, clearToken, setL
     const [postData, setPostData] = useState([])
     useEffect(() => {
       axios.
-        get('http://localhost:4000/post/user/read', {
+        get('http://18.188.241.229/post/user/read', {
           headers: {
             authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json'

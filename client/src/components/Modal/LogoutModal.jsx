@@ -12,7 +12,7 @@ const LogoutModal = ({ modalOff, clearToken, setLogout, accessToken }) => {
         // app.js의 accessToken을 삭제하고, myData도 삭제, isLogin을 false로 바꾸고 모달창 끈다
         // 세션스토어의 내용도 지운다 sessionStore.clear()
       axios.
-        post('http://localhost:4000/users/logout',
+        post('http://18.188.241.229/users/logout',
         { message: 'Logout request with accessToken' },{
           headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -59,7 +59,6 @@ const LogoutModal = ({ modalOff, clearToken, setLogout, accessToken }) => {
                         아니오
                     </button>
                 </div>
-                <br />
                 {errMessage && '로그아웃에 실패하였습니다. 연결상태를 확인하고 다시 시도해주세요.'}
             </div>
            
