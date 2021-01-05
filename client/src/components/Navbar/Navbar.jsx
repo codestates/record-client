@@ -75,15 +75,15 @@ const Navbar = ({ isLogin, myData, handleModal }) => {
               <div className={styles.background} onClick={modalHandler}>
                 <img
                   className={styles.profile}
-                  src="/images/myimg.jpeg" //myData.data.profileImg값이 있으면 그걸 렌더
+                  src={myData.profileUrl ? myData.profileUrl : "/images/empty-profile.png"} //myData.data.profileImg값이 있으면 그걸 렌더
                   alt="profile"
                 />
               </div>
               
             </div>
-           <div className={styles.modalContainer} >
+            <div className={styles.modalContainer} >
                   {isModal && <Modal handleModal={handleModal} />}
-              </div>
+            </div>
           </div>
         )}
       </nav>
