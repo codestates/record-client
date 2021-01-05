@@ -66,7 +66,7 @@ const App = () => {
           <Route exact path="/">
             <Navbar
               isLogin={isLogin}
-              myData={myData}
+              myData={myData.data}
               handleModal={handleModal}
             />
             <LandingPage
@@ -92,7 +92,7 @@ const App = () => {
           <Route exact path="/search">
             <Navbar
               isLogin={isLogin}
-              myData={myData}
+              myData={myData.data}
               handleModal={handleModal}
             />
             <Search
