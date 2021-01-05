@@ -2,21 +2,23 @@ import React, { useState, useEffect } from 'react';
 import styles from '../Mypage/Mypage.module.css'
 import LogoutModal from '../Modal/LogoutModal'
 import axios from 'axios';
-
+import AvatarEditor from 'react-avatar-editor'
+const base64js = require('base64-js')
 
 const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearToken, setLogout }) => {
     const [intro, setIntro] = useState(false)
-    const [introInfo, setIntroInfo] = useState({intruduce: ''})
+    const [introInfo, setIntroInfo] = useState({introduce: ''})
 
 
-    const profileUp = async () => {
+    const profileUp = () => {
  
       const getUrl = () => {
         return new Promise((resolve, reject) => {
           let file = document.getElementById('inputField')
           file.onchange = function (e) {
             let fileReader = new FileReader();
-            fileReader.readAsArrayBuffer(e.target.files[0])
+            console.log(e.target.files[0])
+            fileReader.readAsDataURL(e.target.files[0])
             fileReader.onload = function (e) {
               window.sessionStorage.setItem('url', e.target.result)
               resolve(e.target.result)
@@ -26,16 +28,7 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
         })
       }
       getUrl().then((pic) => {
-        console.log(pic)
-
-        let arrayBufferView = new Uint8Array(pic)
-        let blob = new Blob([arrayBufferView], {type: 'image/png'})
-        console.log(blob)
-        let urlCreator = window.URL || window.webkitURL;
-        let imageUrls = urlCreator.createObjectURL(blob)
-        console.log(imageUrls)
-        document.getElementById('profile').src = imageUrls
-
+        
         return axios
         .put('http://18.188.241.229/users/mypage/update',
         { ...myData, profileUrl: pic },
@@ -54,19 +47,19 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
         }else if (res.status === 401) {
           alert('not authorized')
           document.getElementById('profile').src = "images/empty-profile.png"
-        } else {
+        } else { //here
           console.log(res.data.userInfo.profileUrl)
-/*           let arrayBufferView = new Uint8Array(res.data.userInfo.profileUrl.data)
-          let blob = new Blob([arrayBufferView], {type: 'image/png'})
-          console.log(blob)
-          let urlCreator = window.URL || window.webkitURL;
-          let imageUrls = urlCreator.createObjectURL(blob)
-          console.log(imageUrls)
- */           
-
-        
-
+          const buff = Buffer.from(res.data.userInfo.profileUrl.data, 'base64')
+          const profile = buff.toString('ascii')
           
+          console.log(profile)
+          setMyData({data: {
+            ...myData,
+            profileUrl: profile
+          }})
+          document.getElementById('profile').src = profile
+          console.log(myData)
+
           console.log('프로필 이미지 업로드 성공')
         }
       })
@@ -96,8 +89,6 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
         }else if (res.status === 400) {
           alert('insufficient parameters supplied')
         }else {
-          //app.js의 유저정보에 profileUrl을 추가한다
-          //그렇게 추가한 경로를 img.src에 써주면 렌더가 되는 건가?
           document.getElementById('profile').src = "images/empty-profile.png"
 /*           setMyData({data: {...myData, profileUrl: null}})
  */          window.sessionStorage.setItem('profile', null)
@@ -118,7 +109,7 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
     }
     return (
         <div className={styles.mainContainer}>
-            <section className={styles.profileInfo}>
+           <section className={styles.profileInfo}>
                 <div className={styles.thumbnail}>  
                     <img className={styles.thumbnailContainer} id="profile" src="images/empty-profile.png" />  {/* {!myData.data.data.profilUrl ? "images/empty-profile.png" : "/images/myimg.jpeg"} */}  
                     <form className={styles.input}  >
@@ -151,6 +142,7 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
                     <div className={styles.description}>회원가입할 때 등록한 이메일입니다.</div>
                     <hr/>
                 </div>
+                
             </section>
             {isModalShow && <LogoutModal modalOff={modalOff} clearToken={clearToken} setLogout={setLogout} accessToken={accessToken}/>}
         </div>
