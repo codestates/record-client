@@ -33,7 +33,7 @@ const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
     }
     axios
       .post(
-        'http://localhost:4000/users/login',
+        'http://18.188.241.229/users/login',
         { email, password },
         {
           headers: { 'Content-Type': 'application/json' },
@@ -52,7 +52,7 @@ const Login = ({ setIsLogin, setAccessToken, inputMyInfo }) => {
       })
       .then((token) => {
         return axios
-          .get('http://localhost:4000/users/accessTokenRequest', {
+          .get('http://18.188.241.229/users/accessTokenRequest', {
             headers: {
               authorization: `Bearer ${token}`,
               'Content-Type': 'application/json',

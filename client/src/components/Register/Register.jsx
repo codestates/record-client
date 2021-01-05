@@ -39,7 +39,7 @@ const Register = (props) => {
     }
 
   axios
-    .post("http://localhost:4000/users/register",
+    .post("http://18.188.241.229/users/register",
     { email, username, password, passwordCheck },{
       headers: { 
         "Content-Type": "application/json" }, 

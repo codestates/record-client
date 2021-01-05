@@ -21,7 +21,7 @@ const App = () => {
   //로그인한 사용자의 데이터, 어떤 컴포넌트로 내려줘야 할까?
 
   useEffect(() => {
-    axios.get('http://localhost:4000/posts/read').then((res) => {
+    axios.get('http://18.188.241.229/posts/read').then((res) => {
       if (res.status === 200) {
         setPosts(res.data.postsData);
         setUsers(res.data.usersData);

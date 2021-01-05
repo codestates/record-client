@@ -6,8 +6,11 @@ import AvatarEditor from 'react-avatar-editor'
 const base64js = require('base64-js')
 
 const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearToken, setLogout }) => {
+    const [intro, setIntro] = useState(false)
+    const [introInfo, setIntroInfo] = useState({introduce: ''})
 
-    const profileUp = async () => {
+
+    const profileUp = () => {
  
       const getUrl = () => {
         return new Promise((resolve, reject) => {
@@ -27,7 +30,7 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
       getUrl().then((pic) => {
         
         return axios
-        .put('http://localhost:4000/users/mypage/update',
+        .put('http://18.188.241.229/users/mypage/update',
         { ...myData, profileUrl: pic },
         {
           headers: { 
@@ -70,7 +73,7 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
 
     const profileDelete = () => {
       axios
-        .put('http://localhost:4000/users/mypage/update',
+        .put('http://18.188.241.229/users/mypage/update',
         { ...myData, profileUrl: null },
         {
           headers: { 
@@ -95,8 +98,15 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
         })
       .catch(err => console.log('server err ' + err))
     }
-
     
+    const introInputController = () => {
+      setIntro(!intro)
+    }
+    
+    const inputHandler = (e) => {
+      let input = {...introInfo, [e.target.name] : e.currentTarget.value}
+      setIntroInfo(input)
+    }
     return (
         <div className={styles.mainContainer}>
            <section className={styles.profileInfo}>
@@ -111,13 +121,15 @@ const Mypage = ({ setMyData, myData, accessToken, isModalShow, modalOff, clearTo
                 <div className={styles.nickDesc}>
                     <h2>{myData.username}</h2>
                     <p>{myData.introduce}</p>
+                    {intro && <input placeholder="자기소개를 적어주세요" name="email" onChange={(e) => {inputHandler(e)}}></input>}
+                    <button onClick={introInputController}>수정</button>
                 </div>
             </section>
             <section className={styles.userInfo}> {/* 닉네임, githubUrl, email */}
                 <div>
                     <div className={styles.wrapper}>
                         <h3 className={styles.infoName}>닉네임</h3>
-                        <div className={styles.infoOne}>{myData.nickname}</div>
+                        <div className={styles.infoOne}>{myData.username}</div>
                     </div>
                     <div className={styles.description}>회원가입할 때 등록한 닉네임입니다.</div>
                     <hr/>

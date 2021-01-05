@@ -36,14 +36,14 @@ const Detail = ({
 
   useEffect(() => {
     let currentUrl = window.location.href.split('/')[4];
-    axios.get(`http://localhost:4000/posts/${currentUrl}/read`).then((res) => {
+    axios.get(`http://18.188.241.229/posts/${currentUrl}/read`).then((res) => {
       if (res.status === 200) {
         setPost(res.data.postData);
         setUser(res.data.userInfo);
       }
     });
     axios
-      .get(`http://localhost:4000/comments/post/${currentUrl}/read`)
+      .get(`http://18.188.241.229/comments/post/${currentUrl}/read`)
       .then((res) => {
         setComments(res.data);
       });
